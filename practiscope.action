@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionCollection version="2" name="Scripts">
+    <Actions category="Scripts">
+        <text>My Scripts</text>
+
+        <Action name="save_daily">
+        <icon></icon>
+        <text>My Python Scripts</text>
+        <whatsThis>Allow to save daily</whatsThis>
+        <toolTip>Save current doc to formated location</toolTip>
+        <iconText></iconText>
+        <activationFlags>10000</activationFlags>
+        <activationConditions>0x0000</activationConditions>
+        <shortcut>ctrl+alt+w</shortcut>
+        <isCheckable>false</isCheckable>
+        <statusTip></statusTip>
+        </Action>
+    </Actions>
+</ActionCollection>

@@ -1,7 +1,12 @@
+import os 
+import pathlib
 from krita import *
+from PyQt5.QtGui import QIcon
 
 from practiscope.utils import generate_available_filepath
 
+_ICON = os.path.join(os.path.dirname(__file__), "python.png")
+print(_ICON)
 
 class PractiscopeExtension(Extension):
 
@@ -11,8 +16,9 @@ class PractiscopeExtension(Extension):
 
     def createActions(self, window):
         action = window.createAction("save_daily", "Practiscope - Save Current", "tools/Practiscope")
-        action.triggered.connect(self.exportDocument)    
-    
+        action.triggered.connect(self.exportDocument)
+        action.setIcon(QIcon(_ICON))
+        
     def setup(self):
         # NOTE: must be overriden
         pass
