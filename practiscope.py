@@ -1,5 +1,5 @@
-import os 
-import pathlib
+import os
+
 from krita import *
 from PyQt5.QtGui import QIcon
 
@@ -15,17 +15,34 @@ class PractiscopeExtension(Extension):
         super().__init__(parent)
 
     def createActions(self, window):
-        action = window.createAction("save_daily", "Practiscope - Save Current", "tools/Practiscope")
-        action.triggered.connect(self.exportDocument)
-        action.setIcon(QIcon(_ICON))
+        save_action = window.createAction("save_daily", "Practiscope - Save Current", "tools/Practiscope")
+        save_action.triggered.connect(self.exportDocument)
+        save_action.setIcon(QIcon(_ICON))
+        create_A4 = window.createAction("create_daily", "Practiscope - Create Daily", "tools/Practiscope")
+        create_A4.triggered.connect(self.createDocument)
+        create_A4.setIcon(QIcon(_ICON))
         
     def setup(self):
         # NOTE: must be overriden
-        pass
+        self.application = Krita.instance()
+    
+    def createDocument(self):
+        # Create A4, 300 dpi
+        
+        new_document = self.application.createDocument(
+            4960,
+            3508,
+            "foo",
+            "RGBA",
+            "U8",
+            "",
+            300.0
+        )
+        self.application.activeWindow().addView(new_document)
         
     def exportDocument(self):
         # Get the document:
-        doc =  Krita.instance().activeDocument()
+        doc =  self.application.activeDocument()
         # Saving a non-existent document causes crashes, so lets check for that first.
         if doc:
             print(doc.fileName())
