@@ -14,6 +14,18 @@ DATE_PATTERN = r"^(?P<iso_date>((?P<year>\d{4})_(?P<month>\d{2})_(?P<day>\d{2}))
 def format_current_isodate(today:date) -> str:
     return today.isoformat().replace("-", "_")
 
+def get_get_practice_directory() -> str:
+    today=date.today()
+    practice_directory = Path(
+        ROOT.format(
+            current_year=today.year,
+            month=calendar.month_name[today.month].lower()
+        )
+    ).as_posix()
+    
+    return practice_directory
+    
+
 
 def get_latest_available_number(practice_directory:str)-> int:
     today=date.today()
