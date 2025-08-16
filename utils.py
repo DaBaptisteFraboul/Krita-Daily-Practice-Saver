@@ -1,9 +1,11 @@
 import os
 import  re
+import calendar
 
 from pathlib import Path
-from datetime import datetime, date
-import calendar
+from datetime import date
+from PyQt5.QtGui import QIcon
+
 
 ROOT = r"D:\_ART\{current_year}\practice\{month}"
 FILENAME = r"{iso_date}__practice__w{file_number}.kra"
@@ -11,8 +13,18 @@ FILE_NUMBER_PATTERN = r"__w(?P<number>\d{3}).kra"
 DATE_PATTERN = r"^(?P<iso_date>((?P<year>\d{4})_(?P<month>\d{2})_(?P<day>\d{2})))__practice__w(?P<number>\d{3})"
 
 
+def get_icon(name:str="python.png") -> QIcon:
+    path = os.path.join(
+        os.path.dirname(__file__),
+        "icons",
+        name
+    )
+    return QIcon(path)
+
+
 def format_current_isodate(today:date) -> str:
     return today.isoformat().replace("-", "_")
+
 
 def get_get_practice_directory() -> str:
     today=date.today()
@@ -24,7 +36,6 @@ def get_get_practice_directory() -> str:
     ).as_posix()
     
     return practice_directory
-    
 
 
 def get_latest_available_number(practice_directory:str)-> int:
@@ -74,6 +85,9 @@ def generate_available_filepath(number_padding:int) -> str :
 
         
 if __name__ == "__main__":
+    """
+    Testing purpose
+    """
     today = date.today()
     practice_directory = Path(
         ROOT.format(
@@ -83,3 +97,4 @@ if __name__ == "__main__":
     ).as_posix()
     a = get_latest_available_number(practice_directory=practice_directory)
     print(a)
+    print(get_icon())
